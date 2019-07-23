@@ -20,17 +20,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         frameLayout=(FrameLayout)findViewById(R.id.framelayout);
-        btn_capture=(Button)findViewById(R.id.btn_capture);
-        btn_capture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Toast.makeText(getApplicationContext(),"Captured",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        btn_capture=(Button)findViewById(R.id.btn_capture);
+//        btn_capture.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //Toast.makeText(getApplicationContext(),"Captured",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         //open the camera
+
         camera=Camera.open();
         show_camera=new Show_camera(this,camera);
+
+        Camera.Parameters params = camera.getParameters();
+        if (params.getSupportedFocusModes().contains(
+                Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO)) {
+            params.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_VIDEO);
+        }
+        camera.setParameters(params);
 
 
 
